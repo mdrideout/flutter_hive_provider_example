@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_hive_example/models/contact.dart';
 import 'package:flutter_hive_example/widgets/contact_list.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_hive_example/models/contact_data.dart';

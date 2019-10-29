@@ -1,16 +1,7 @@
-# flutter_hive_example
+# Flutter Hive Provider Example
+A basic contact management flutter app demonstrating the use of **Provider** for state management and **Hive** for persistent data storage.
 
-A demonstration of using the hive package to store data locally with Flutter.
+- [Hive](https://pub.dev/packages/hive)
+- [Provider](https://pub.dev/packages/provider)
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Every time persistent data is changed _(when a contact is added or deleted from hive)_, the provider data is refreshed from hive. The ui is updated by calling `notifyListeners();`.
