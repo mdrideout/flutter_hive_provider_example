@@ -3,13 +3,29 @@ import 'package:provider/provider.dart';
 import 'package:flutter_hive_example/models/contact_data.dart';
 import 'package:flutter_hive_example/models/contact.dart';
 
-class AddContactScreen extends StatelessWidget {
+class ContactAddScreen extends StatefulWidget {
+  @override
+  _ContactAddScreenState createState() => _ContactAddScreenState();
+}
+
+class _ContactAddScreenState extends State<ContactAddScreen> {
+  String newContactName;
+  String newContactEmail;
+  String newContactPhone;
+
+  void _addContact(context) {
+    Provider.of<ContactsData>(context).addContact(
+      Contact(
+        name: (newContactName != null) ? newContactName : '',
+        email: (newContactEmail != null) ? newContactEmail : '',
+        phone: (newContactPhone != null) ? newContactPhone : '',
+      ),
+    );
+    Navigator.pop(context);
+  }
+
   @override
   Widget build(BuildContext context) {
-    String newContactName;
-    String newContactEmail;
-    String newContactPhone;
-
     return Scaffold(
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
@@ -25,14 +41,7 @@ class AddContactScreen extends StatelessWidget {
               ),
             ),
             onPressed: () {
-              Provider.of<ContactsData>(context).addContact(
-                Contact(
-                  name: (newContactName != null) ? newContactName : '',
-                  email: (newContactEmail != null) ? newContactEmail : '',
-                  phone: (newContactPhone != null) ? newContactPhone : '',
-                ),
-              );
-              Navigator.pop(context);
+              _addContact(context);
             },
           ),
         ],
@@ -49,7 +58,9 @@ class AddContactScreen extends StatelessWidget {
                   hintText: 'Name',
                 ),
                 onChanged: (nameV) {
-                  newContactName = nameV;
+                  setState(() {
+                    newContactName = nameV;
+                  });
                 },
               ),
               SizedBox(
@@ -61,7 +72,9 @@ class AddContactScreen extends StatelessWidget {
                   hintText: 'Phone',
                 ),
                 onChanged: (phoneV) {
-                  newContactPhone = phoneV;
+                  setState(() {
+                    newContactPhone = phoneV;
+                  });
                 },
               ),
               SizedBox(
@@ -73,7 +86,9 @@ class AddContactScreen extends StatelessWidget {
                   hintText: 'Email',
                 ),
                 onChanged: (emailV) {
-                  newContactEmail = emailV;
+                  setState(() {
+                    newContactEmail = emailV;
+                  });
                 },
               ),
             ],

@@ -1,6 +1,7 @@
 // The display of a single contact
 
 import 'package:flutter/material.dart';
+import 'package:flutter_hive_example/screens/contact_view_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_hive_example/models/contact.dart';
 import 'package:flutter_hive_example/models/contact_data.dart';
@@ -21,11 +22,13 @@ class ContactTile extends StatelessWidget {
           title: Text(
             currentContact.name,
           ),
-          subtitle: Text(
-            '${currentContact.phone} ${currentContact.email}',
-          ),
-          onLongPress: () {
-            contactData.deleteContact(tileIndex);
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) {
+                return ContactViewScreen();
+              }),
+            );
           },
         );
       },

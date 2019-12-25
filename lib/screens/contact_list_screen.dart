@@ -3,7 +3,7 @@ import 'package:flutter_hive_example/widgets/contact_list.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_hive_example/models/contact_data.dart';
 
-class ContactsScreen extends StatelessWidget {
+class ContactListScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // Get list of contacts but do not listen (would trigger a loop)

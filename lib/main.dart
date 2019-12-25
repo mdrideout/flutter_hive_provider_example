@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hive_example/models/contact.dart';
-import 'package:flutter_hive_example/screens/add_contact_screen.dart';
+import 'package:flutter_hive_example/screens/contact_add_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_hive_example/models/contact_data.dart';
 import 'package:hive/hive.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:flutter_hive_example/screens/contacts_screen.dart';
+import 'package:flutter_hive_example/screens/contact_list_screen.dart';
 
 void main() {
   Hive.registerAdapter(ContactAdapter(), 0);
@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      builder: (context) => ContactsData(),
+      create: (context) => ContactsData(),
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
@@ -42,14 +42,14 @@ class MyApp extends StatelessWidget {
                         ),
                       );
                     } else {
-                      return ContactsScreen();
+                      return ContactListScreen();
                     }
                   } else {
                     return Scaffold();
                   }
                 },
               ),
-          '/AddContactScreen': (context) => AddContactScreen(),
+          '/AddContactScreen': (context) => ContactAddScreen(),
         },
       ),
     );
