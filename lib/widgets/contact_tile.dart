@@ -23,6 +23,9 @@ class ContactTile extends StatelessWidget {
             currentContact.name,
           ),
           onTap: () {
+            Provider.of<ContactsData>(context, listen: false)
+                .setActiveContact(currentContact.key);
+
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) {

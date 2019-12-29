@@ -13,6 +13,9 @@ class ContactsData extends ChangeNotifier {
   // Initialize our list of contacts
   List<Contact> _contacts = [];
 
+  // Holds our active contact
+  Contact _activeContact;
+
   /// Get Contacts
   /// Gets all contacts from the hive box and loads them into our state List
   void getContacts() async {
@@ -51,26 +54,29 @@ class ContactsData extends ChangeNotifier {
   }
 
   /// Delete Contact
-  /// - Deletes the contact from Hive
-  /// - Updates our List from Hive
-  /// - Notifies listeners to update the UI
-  void deleteContact(index) async {
+  void deleteContact(key) async {
     var box = await Hive.openBox<Contact>(_boxName);
 
-    print("Box Keys: " + box.keys.toList().toString());
-    print("Deleting Index " +
-        index.toString() +
-        " which has a box key value of: " +
-        box.keys.toList()[index].toString());
+    await box.delete(key);
 
-    // Get key of box we want to delete
-    var boxKey = box.keys.toList()[index];
+    // Update _clients List with all box values
+    _contacts = box.values.toList().reversed.toList();
 
-    // Delete the contact from the box
-    await box.delete(boxKey);
+    print("Deleted contact with key: " + key.toString());
 
-    // Update our provider state data with a hive read, and refresh the ui
-    _contacts = box.values.toList();
+    // Update UI
     notifyListeners();
+  }
+
+  /// Set an active contact we can notify listeners for
+  void setActiveContact(key) async {
+    var box = await Hive.openBox<Contact>(_boxName);
+    _activeContact = box.get(key);
+    notifyListeners();
+  }
+
+  /// Get Active Contact
+  Contact getActiveContact() {
+    return _activeContact;
   }
 }
