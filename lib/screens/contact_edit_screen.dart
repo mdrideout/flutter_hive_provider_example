@@ -4,17 +4,20 @@ import 'package:flutter_hive_example/widgets/common_toast.dart';
 import 'package:flutter_hive_example/models/contact_data.dart';
 import 'package:flutter_hive_example/models/contact.dart';
 
-class ContactAddScreen extends StatefulWidget {
+class ContactEditScreen extends StatefulWidget {
+  final Contact currentContact;
+  ContactEditScreen({@required this.currentContact});
+
   @override
-  _ContactAddScreenState createState() => _ContactAddScreenState();
+  _ContactEditScreenState createState() => _ContactEditScreenState();
 }
 
-class _ContactAddScreenState extends State<ContactAddScreen> {
+class _ContactEditScreenState extends State<ContactEditScreen> {
   String newContactName;
   String newContactEmail;
   String newContactPhone;
 
-  void _addContact(context) {
+  void _editContact(context) {
     /// Validate the client name input
     if (newContactName == null) {
       commonToast("You must include a name.");
@@ -26,14 +29,35 @@ class _ContactAddScreenState extends State<ContactAddScreen> {
     }
 
     /// Save contact data, email and phone are optional - null values replaced by empty string
-    Provider.of<ContactsData>(context).addContact(
-      Contact(
+    Provider.of<ContactsData>(context).editContact(
+      contact: Contact(
         name: newContactName,
         email: (newContactEmail != null) ? newContactEmail : '',
         phone: (newContactPhone != null) ? newContactPhone : '',
       ),
+      contactKey: widget.currentContact.key,
     );
     Navigator.pop(context);
+  }
+
+  // Controllers for form text controllers
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _phoneController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+
+  @override
+  void initState() {
+    /// Set the initial text field value and state value for the currentClient on initial load
+    _nameController.text = widget.currentContact.name;
+    newContactName = widget.currentContact.name;
+
+    _phoneController.text = widget.currentContact.phone;
+    newContactPhone = widget.currentContact.phone;
+
+    _emailController.text = widget.currentContact.email;
+    newContactEmail = widget.currentContact.email;
+
+    super.initState();
   }
 
   @override
@@ -42,7 +66,7 @@ class _ContactAddScreenState extends State<ContactAddScreen> {
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: Text('Add A Contact'),
+        title: Text('Edit ${widget.currentContact.name}'),
         actions: <Widget>[
           FlatButton(
             child: Text(
@@ -53,7 +77,7 @@ class _ContactAddScreenState extends State<ContactAddScreen> {
               ),
             ),
             onPressed: () {
-              _addContact(context);
+              _editContact(context);
             },
           ),
         ],
@@ -66,6 +90,7 @@ class _ContactAddScreenState extends State<ContactAddScreen> {
             children: <Widget>[
               TextField(
                 autofocus: true,
+                controller: _nameController,
                 decoration: InputDecoration(
                   hintText: 'Name',
                 ),
@@ -80,6 +105,7 @@ class _ContactAddScreenState extends State<ContactAddScreen> {
               ),
               TextField(
                 autofocus: true,
+                controller: _phoneController,
                 decoration: InputDecoration(
                   hintText: 'Phone',
                 ),
@@ -94,6 +120,7 @@ class _ContactAddScreenState extends State<ContactAddScreen> {
               ),
               TextField(
                 autofocus: true,
+                controller: _emailController,
                 decoration: InputDecoration(
                   hintText: 'Email',
                 ),

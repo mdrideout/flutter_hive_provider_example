@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_hive_example/screens/contact_edit_screen.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_hive_example/models/contact_data.dart';
 import 'package:flutter_hive_example/models/contact.dart';
@@ -68,16 +69,16 @@ class ContactViewScreen extends StatelessWidget {
                 switch (selection) {
                   case 1:
                     print("Selected Edit");
-//                    Navigator.push(
-//                      context,
-//                      MaterialPageRoute(
-//                        builder: (context) {
-//                          return ClientEditScreen(
-//                            currentClient: currentClient,
-//                          );
-//                        },
-//                      ),
-//                    );
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return ContactEditScreen(
+                            currentContact: currentContact,
+                          );
+                        },
+                      ),
+                    );
                     break;
 
                   case 2:

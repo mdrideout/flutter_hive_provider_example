@@ -59,10 +59,30 @@ class ContactsData extends ChangeNotifier {
 
     await box.delete(key);
 
-    // Update _clients List with all box values
-    _contacts = box.values.toList().reversed.toList();
+    // Update _contacts List with all box values
+    _contacts = box.values.toList();
 
     print("Deleted contact with key: " + key.toString());
+
+    // Update UI
+    notifyListeners();
+  }
+
+  /// Edit Contact
+  /// Overwrites our existing contact based on key with a brand new updated Contact object
+  void editContact({Contact contact, int contactKey}) async {
+    var box = await Hive.openBox<Contact>(_boxName);
+
+    // Add a contact to our box
+    await box.put(contactKey, contact);
+
+    // Update _contacts List with all box values
+    _contacts = box.values.toList();
+
+    // Update activeContact
+    _activeContact = box.get(contactKey);
+
+    print('New Name Of Contact: ' + contact.name);
 
     // Update UI
     notifyListeners();
