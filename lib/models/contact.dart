@@ -7,7 +7,7 @@ import 'package:hive/hive.dart';
 
 part 'contact.g.dart';
 
-@HiveType() // use Hive to generate a type adapter
+@HiveType(typeId: 0) // use Hive to generate a type adapter
 class Contact extends HiveObject {
   // Define variables
 

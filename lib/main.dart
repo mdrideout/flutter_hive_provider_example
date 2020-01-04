@@ -8,7 +8,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:flutter_hive_example/screens/contact_list_screen.dart';
 
 void main() {
-  Hive.registerAdapter(ContactAdapter(), 0);
+  Hive.registerAdapter(ContactAdapter());
   runApp(MyApp());
 }
 

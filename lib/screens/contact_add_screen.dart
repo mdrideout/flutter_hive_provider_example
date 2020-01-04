@@ -26,7 +26,7 @@ class _ContactAddScreenState extends State<ContactAddScreen> {
     }
 
     /// Save contact data, email and phone are optional - null values replaced by empty string
-    Provider.of<ContactsData>(context).addContact(
+    Provider.of<ContactsData>(context, listen: false).addContact(
       Contact(
         name: newContactName,
         email: (newContactEmail != null) ? newContactEmail : '',

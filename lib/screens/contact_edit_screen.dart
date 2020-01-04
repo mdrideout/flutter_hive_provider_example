@@ -29,7 +29,7 @@ class _ContactEditScreenState extends State<ContactEditScreen> {
     }
 
     /// Save contact data, email and phone are optional - null values replaced by empty string
-    Provider.of<ContactsData>(context).editContact(
+    Provider.of<ContactsData>(context, listen: false).editContact(
       contact: Contact(
         name: newContactName,
         email: (newContactEmail != null) ? newContactEmail : '',

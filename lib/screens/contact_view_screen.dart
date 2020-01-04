@@ -36,7 +36,7 @@ class ContactViewScreen extends StatelessWidget {
                 child: Text('Delete'),
                 onPressed: () {
                   print("Deleting ${currentClient.name}...");
-                  Provider.of<ContactsData>(context)
+                  Provider.of<ContactsData>(context, listen: false)
                       .deleteContact(currentClient.key);
                   Navigator.popUntil(
                       context, ModalRoute.withName(Navigator.defaultRouteName));

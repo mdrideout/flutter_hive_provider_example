@@ -8,6 +8,9 @@ part of 'contact.dart';
 
 class ContactAdapter extends TypeAdapter<Contact> {
   @override
+  final typeId = 0;
+
+  @override
   Contact read(BinaryReader reader) {
     var numOfFields = reader.readByte();
     var fields = <int, dynamic>{
